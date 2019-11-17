@@ -20,3 +20,5 @@ main.py: a python file that once executed build up the search engine.
 
 exercise_4.py: python file that contains the implementation of the algorithm that solves problem 4.
 
+exercise_4(2).py: python file that contains the implementation of the algorithm that solves problem 4 in another way
+
