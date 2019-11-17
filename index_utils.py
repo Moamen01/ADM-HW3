@@ -15,62 +15,10 @@ import string
 import json
 import math
 import numpy as np
+import utils
 
 
 
-# In[ ]:
-
-
-stop_words1 = list(get_stop_words('en'))         
-stop_words2 = list(stopwords.words('english')) 
-stop_words=list(set(stop_words1+stop_words2)) #collection of stop words from 2 libs
-stop_words.append('nan')
-def remove_stopWords(text):
-    #INPUT: text
-    #OUTPUT: removes all stop words and reterns a cleaned text
-    #print('remove_stopWords...')
-    if type(text)==numpy.float64: return ''
-    else:
-        return ' '.join([w for w in text.split() if not w in stop_words])+' '
-
-
-# In[ ]:
-
-
-tokenizer = RegexpTokenizer(r'\w+')
-def remove_punctuation(text):
-    #INPUT: text
-    #OUTPUT: cleaned text after removing all punctuation and special chars
-    #print('remove_punctuation...')
-    if type(text)==numpy.float64: return ''
-    else:
-        return ' '.join(tokenizer.tokenize(text))+' '
-
-
-# In[ ]:
-
-
-ps = PorterStemmer()
-def stem(text):
-    #INPUT: text
-    #OUTPUT: returns text after stem all words using NLTK lib
-    #print('stem...')
-    if type(text)==numpy.float64: return ''
-    else:
-        return ' '.join([ps.stem(w) for w in text.split()])+' '
-
-
-# In[ ]:
-
-
-def remove_nonASCII(text):
-    #INPUT: text
-    #OUTPUT: returns text after removing all non ASCII chars, there are alot of non Latin alphabet, chinese for ex.
-    #print('remove_nonASCII...')
-    if type(text)==numpy.float64: return ''
-    else:
-        printable = set(string.printable)
-        return ''.join(filter(lambda x: x in printable, text))+' '
 
 
 # In[ ]:
@@ -82,9 +30,9 @@ for i in range(1,30001):
     path='/Users/MO/Desktop/ADM/ADM-HW3/Movies_tsv_files/Doc'+str(i)+'.tsv'
     doc=pd.read_csv(path,sep='\t')
     #print(doc['Intro'][0])
-    c_title=remove_nonASCII(stem(remove_punctuation(remove_stopWords(doc['Title'][0]))))
-    c_intro=remove_nonASCII(stem(remove_punctuation(remove_stopWords(doc['Intro'][0]))))
-    c_plot=remove_nonASCII(stem(remove_punctuation(remove_stopWords(doc['Plot'][0]))))
+    c_title=utils.clean_text(doc['Title'][0])
+    c_intro=utils.clean_text(doc['Intro'][0])
+    c_plot=utils.clean_text(doc['Plot'][0])
     f_name = 'Doc'+str(i)+".tsv"
     with open(f_name, 'w') as out_file:
         header=['Id','Title', 'Intro', 'Plot']
@@ -113,7 +61,7 @@ with open('All_text_title_intro_plot.txt', 'r') as file:
 
 with open('All_text_cleaned.txt', 'w') as file:
     #clean all text
-    cleaned_text= remove_nonASCII(stem(remove_punctuation(remove_stopWords(all_text))))
+    cleaned_text= utils.clean_text(all_text)
     #save cleaned text to txt file
     file.write(cleaned_text)
 
