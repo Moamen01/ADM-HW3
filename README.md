@@ -15,6 +15,7 @@ index.py: a python file that once executed generate the indexes of the Search en
 
 index_utils.py: a python file that contains the functions used for creating indexes.
 
+main.ipynb: a Jupyter notebook explaines the strategies you adopted solving the homework and the Bonus point (visualization task). 
 
 main.py: a python file that once executed build up the search engine. 
 
