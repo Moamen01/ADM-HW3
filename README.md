@@ -1,4 +1,4 @@
-# ADM-HW3
+# Search Engine on 30K Wiki documents
 
 The content of the repository is composed in this way:
 
